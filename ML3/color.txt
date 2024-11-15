@@ -1,0 +1,20 @@
+colors:
+green 	-	nature, health, poison 
+yellow 	- 	happiness, sun, light, vacation
+orange 	- 	daybreak, fruit
+red 	- 	blood, danger, fire
+cyan 	- 	sky, masculine
+blue 	- 	ocean, water, calm, sadness
+black 	- 	night, death, darkness
+white 	- 	clean, medical, cloud
+pink 	- 	love, feminine
+
+
+
+
+
+shapes:
+circle 	-	cute, friendly
+square 	-	order, manmade, stability
+triangle - 	organic, tricky, sharp, intense
+star 	- 	special, valuable, shiny	(currently not implemented)

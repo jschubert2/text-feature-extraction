@@ -1,6 +1,7 @@
 import torch
 from transformers import DistilBertTokenizer, DistilBertModel
 import numpy as np
+import json
 
 # Define a color palette with fixed hex codes
 color_palette = {
@@ -14,6 +15,8 @@ color_palette = {
     "red": "#eb1c1c",
     "pink": "#f02ec2",
 }
+input_json_path = "test_input.json"
+output_json_path = "text_prompt_predictions.json"
 
 color_classes = list(color_palette.keys())
 color_to_hex = {idx: hex_code for idx, hex_code in enumerate(color_palette.values())}
@@ -59,12 +62,42 @@ def predict_color_and_shape(prompt):
     # Convert shape logits to label
     shape_labels = ["circle", "square", "triangle", "star"]
     predicted_shape = shape_labels[torch.argmax(predicted_shape_logits).item()]
+    one_hot_shape = [1 if i == predicted_shape else 0 for i in range(len(shape_labels))]
 
-    print(f"Prompt: '{prompt}'")
-    print(f"Predicted Color (Hex): {predicted_color_hex}")
-    print(f"Predicted Shape: {predicted_shape}")
+    # Assume predicted_shape_logits is already one-hot encoded
+    one_hot_shape = predicted_shape_logits.squeeze().tolist()  # Convert tensor to list
 
-# Run the prediction for a custom prompt
-#custom_prompt = "a mysterious, foggy forest at dawn"
-custom_prompt = "a sunny afternoon with friends"
-predict_color_and_shape(custom_prompt)
+    # Return structured output
+    return {
+        "prompt": prompt,
+        "predicted_color_hex": predicted_color_hex,
+        "predicted_shape": predicted_shape
+    }
+# Load the JSON file
+def process_json(file_path, output_path):
+    try:
+        with open(file_path, 'r') as file:
+            data = json.load(file)
+
+        # Results list to store predictions
+        results = []
+
+        if "text_prompts" in data:
+            for entry in data["text_prompts"]:
+                prompt_text = entry.get("text")
+                if prompt_text:
+                    # Get prediction
+                    prediction = predict_color_and_shape(prompt_text)
+                    results.append(prediction)
+                else:
+                    print("Skipped entry with missing 'text'.")
+
+        # Save results to JSON
+        with open(output_path, 'w') as outfile:
+            json.dump(results, outfile, indent=4)
+            print(f"Results saved to {output_path}")
+
+    except Exception as e:
+        print(f"An error occurred: {e}")
+
+process_json(input_json_path, output_json_path)

@@ -1,0 +1,12 @@
+[
+    {
+        "prompt": "blue",
+        "predicted_color_hex": "#d3ff36",
+        "predicted_shape": "circle"
+    },
+    {
+        "prompt": "red",
+        "predicted_color_hex": "#d3ff36",
+        "predicted_shape": "circle"
+    }
+]

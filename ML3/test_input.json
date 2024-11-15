@@ -1,0 +1,19 @@
+{
+    "id": "file_name",
+    "text_prompts": [
+        {
+            "text": "blue"
+        },
+        {
+            "text": "red"
+        }
+    ],
+    "image_prompts": [
+        {
+            "image": "base64" 
+        },
+        {
+            "image": "base64" 
+        }
+    ]
+}
