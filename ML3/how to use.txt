@@ -1,0 +1,3 @@
+1. run train_model.py, it generates a .pth file (you only need to do this once), it uses the trainingdata in trainingprompts_classification.json
+2. run predict_color_shape.py to predict shape and color of test_input.json "text prompts"
+3. result outputs into text_prompt_predictions.json
