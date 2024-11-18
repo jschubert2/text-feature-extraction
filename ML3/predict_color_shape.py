@@ -5,15 +5,15 @@ import json
 
 # Define a color palette with fixed hex codes
 color_palette = {
-    "green": "#25cc53",
-    "yellow": "#d3ff36",
-    "orange": "#e39a24",
-    "cyan": "#29d0d6",
-    "black": "#121212",
-    "white": "#f0f0f0",
-    "blue": "#3a47d6",
-    "red": "#eb1c1c",
-    "pink": "#f02ec2",
+    "green": (37, 204, 83),
+    "yellow": (211, 255, 54),
+    "orange": (227, 154, 36),
+    "cyan": (41, 208, 214),
+    "black": (18, 18, 18),
+    "white": (240, 240, 240),
+    "blue": (58, 71, 214),
+    "red": (235, 28, 28),
+    "pink": (240, 46, 194),
 }
 input_json_path = "test_input.json"
 output_json_path = "text_prompt_predictions.json"
