@@ -3,7 +3,7 @@ from transformers import DistilBertTokenizer, DistilBertModel
 import numpy as np
 import json
 
-# Define a color palette with fixed hex codes
+# Define a color palette with RGB values
 color_palette = {
     "green": (37, 204, 83),
     "yellow": (211, 255, 54),
@@ -19,7 +19,7 @@ input_json_path = "test_input.json"
 output_json_path = "text_prompt_predictions.json"
 
 color_classes = list(color_palette.keys())
-color_to_hex = {idx: hex_code for idx, hex_code in enumerate(color_palette.values())}
+color_to_rgb = {idx: rgb for idx, rgb in enumerate(color_palette.values())}
 
 # Define the model architecture for color classification
 class ColorShapeModel(torch.nn.Module):
@@ -55,9 +55,9 @@ def predict_color_and_shape(prompt):
     with torch.no_grad():
         predicted_color_logits, predicted_shape_logits = model(input_ids, attention_mask)
 
-    # Convert color logits to hex
+    # Convert color logits to RGB
     predicted_color_idx = torch.argmax(predicted_color_logits).item()
-    predicted_color_hex = color_to_hex[predicted_color_idx]
+    predicted_color_rgb = color_to_rgb[predicted_color_idx]
 
     # Convert shape logits to label
     shape_labels = ["circle", "square", "triangle", "star"]
@@ -70,9 +70,10 @@ def predict_color_and_shape(prompt):
     # Return structured output
     return {
         "prompt": prompt,
-        "predicted_color_hex": predicted_color_hex,
+        "predicted_color_rgb": predicted_color_rgb,
         "predicted_shape": predicted_shape
     }
+
 # Load the JSON file
 def process_json(file_path, output_path):
     try:
